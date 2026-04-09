@@ -5,7 +5,7 @@ async function getAISuggestions(resumeText) {
     const response = await axios.post(
       "https://openrouter.ai/api/v1/chat/completions",
       {
-        model: "mistralai/mistral-7b-instruct",
+        model: "openai/gpt-3.5-turbo",
         messages: [
           {
             role: "system",
@@ -20,14 +20,16 @@ async function getAISuggestions(resumeText) {
       {
         headers: {
           "Authorization": `Bearer ${process.env.AI_API_KEY}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "HTTP-Referer": "https://resume-analyzer-final.vercel.app",
+          "X-Title": "Resume Analyzer"
         }
       }
     );
 
     return response.data.choices[0].message.content;
   } catch (err) {
-    console.error("AI error:", err.message);
+    console.error("AI FULL ERROR:", err.response?.data || err.message);
     return "AI suggestions unavailable";
   }
 }
