@@ -2,24 +2,36 @@ const axios = require('axios');
 
 async function getAISuggestions(resumeText) {
   try {
-    // Step 1: Get available models from Grok (xAI)
-    const modelsResponse = await axios.get(
-      "https://api.x.ai/v1/models",
+    const response = await axios.post(
+      "https://api.groq.com/openai/v1/chat/completions",
+      {
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          {
+            role: "system",
+            content: "You are a resume analyzer. Give 3 to 5 short, clear improvement suggestions."
+          },
+          {
+            role: "user",
+            content: `Analyze this resume and give improvement suggestions:\n${resumeText}`
+          }
+        ]
+      },
       {
         headers: {
-          "Authorization": `Bearer ${process.env.AI_API_KEY}`
+          "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+          "Content-Type": "application/json"
         }
       }
     );
 
-    console.log("AVAILABLE MODELS:", modelsResponse.data);
+    console.log("AI RESPONSE:", response.data);
 
-    // TEMP RETURN (we just want to see models first)
-    return "Check server logs for available models";
+    return response.data.choices[0].message.content;
 
   } catch (err) {
-    console.error("MODEL FETCH ERROR:", err.response?.data || err.message);
-    return "Error fetching models";
+    console.error("AI ERROR:", err.response?.data || err.message);
+    return "AI suggestions unavailable";
   }
 }
 
