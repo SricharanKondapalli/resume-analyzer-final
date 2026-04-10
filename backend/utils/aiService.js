@@ -3,9 +3,9 @@ const axios = require('axios');
 async function getAISuggestions(resumeText) {
   try {
     const response = await axios.post(
-      "https://openrouter.ai/api/v1/chat/completions",
+      "https://api.x.ai/v1/chat/completions",
       {
-        model: "openai/gpt-3.5-turbo-0125",
+        model: "grok-2-latest",
         messages: [
           {
             role: "system",
@@ -20,9 +20,7 @@ async function getAISuggestions(resumeText) {
       {
         headers: {
           "Authorization": `Bearer ${process.env.AI_API_KEY}`,
-          "Content-Type": "application/json",
-          "HTTP-Referer": "https://resume-analyzer-final.vercel.app",
-          "X-Title": "Resume Analyzer"
+          "Content-Type": "application/json"
         }
       }
     );
