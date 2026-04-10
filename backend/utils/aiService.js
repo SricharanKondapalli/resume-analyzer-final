@@ -2,35 +2,24 @@ const axios = require('axios');
 
 async function getAISuggestions(resumeText) {
   try {
-    const response = await axios.post(
-      "https://api.x.ai/v1/chat/completions",
-      {
-        model: "grok-1",
-        messages: [
-          {
-            role: "system",
-            content: "You are a resume analyzer. Give short improvement suggestions."
-          },
-          {
-            role: "user",
-            content: `Analyze this resume and give 3-5 improvement suggestions:\n${resumeText}`
-          }
-        ]
-      },
+    // Step 1: Get available models from Grok (xAI)
+    const modelsResponse = await axios.get(
+      "https://api.x.ai/v1/models",
       {
         headers: {
-          "Authorization": `Bearer ${process.env.AI_API_KEY}`,
-          "Content-Type": "application/json"
+          "Authorization": `Bearer ${process.env.AI_API_KEY}`
         }
       }
     );
 
-    console.log("AI RESPONSE:", response.data);
+    console.log("AVAILABLE MODELS:", modelsResponse.data);
 
-    return response.data.choices[0].message.content;
+    // TEMP RETURN (we just want to see models first)
+    return "Check server logs for available models";
+
   } catch (err) {
-    console.error("AI FULL ERROR:", err.response?.data || err.message);
-    return "AI suggestions unavailable";
+    console.error("MODEL FETCH ERROR:", err.response?.data || err.message);
+    return "Error fetching models";
   }
 }
 
