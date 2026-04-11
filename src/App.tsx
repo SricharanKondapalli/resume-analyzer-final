@@ -97,10 +97,10 @@ export default function App() {
               <div className="absolute -inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="mb-6">
                 <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Initialize</span> Analysis
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Start</span> Analysis
                 </h2>
                 <p className="text-sm text-slate-400 mt-1">
-                  Paste your resume directly into the terminal below for an instant, deep-learning powered evaluation.
+                  Paste your resume directly into the box below for an instant, AI-powered evaluation.
                 </p>
               </div>
               <ResumeInput onAnalyze={handleAnalyze} loading={analyzing} />
@@ -137,11 +137,11 @@ export default function App() {
             <div className="glass-panel rounded-2xl p-6 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 pointer-events-none" />
               <h3 className="text-sm font-semibold tracking-wide text-white mb-4 uppercase">How It Works</h3>
-              <div className="space-y-5 relative relative z-10">
+              <div className="space-y-5 relative z-10">
                 {[
-                  { num: '01', title: 'Parse Matrix', desc: 'Securely extract raw text formats.' },
-                  { num: '02', title: 'Neural Analysis', desc: 'Llama-3 evaluates structure & verb impact.' },
-                  { num: '03', title: 'Action Report', desc: 'Generate 1% candidate benchmarks.' },
+                  { num: '01', title: 'Read Text', desc: 'Securely extract your resume content.' },
+                  { num: '02', title: 'Analyze Content', desc: 'AI checks your structure, skills, and words.' },
+                  { num: '03', title: 'Generate Suggestions', desc: 'Get clear steps to improve your resume.' },
                 ].map((step) => (
                   <div key={step.num} className="flex gap-4 group cursor-default">
                     <span className="flex-shrink-0 text-sm font-bold text-indigo-500/50 group-hover:text-indigo-400 transition-colors">
@@ -158,14 +158,14 @@ export default function App() {
 
             <div className="relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-indigo-900 to-purple-900 ring-1 ring-white/10 shadow-[0_0_30px_rgba(99,102,241,0.3)]">
               <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 blur-2xl rounded-full" />
-              <h3 className="text-sm font-semibold mb-3 text-white">Diagnostic Vectors</h3>
+              <h3 className="text-sm font-semibold mb-3 text-white">What We Check</h3>
               <ul className="space-y-2.5 relative z-10">
                 {[
-                  'Information Architecture',
-                  'Impact Quantification (Metrics)',
-                  'Action Verb Density',
-                  'ATS Keyword Alignment',
-                  'Professional Tone Mapping',
+                  'Resume Layout',
+                  'Numbers & Results',
+                  'Strong Action Words',
+                  'Required Skills',
+                  'Professional Tone',
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-2.5 text-xs text-indigo-100/80 font-medium">
                     <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
@@ -180,7 +180,7 @@ export default function App() {
 
       <footer className="relative z-10 border-t border-white/5 mt-16 py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-xs font-medium tracking-wide text-slate-500 uppercase">
-          AI Candidate Optimizer <span className="opacity-50 mx-2">|</span> Engine: Llama-3 70B <span className="opacity-50 mx-2">|</span> Glassmorphism UI
+          AI Resume Optimizer <span className="opacity-50 mx-2">|</span> Powered by Llama-3 <span className="opacity-50 mx-2">|</span> Modern UI
         </div>
       </footer>
     </div>

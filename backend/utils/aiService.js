@@ -2,18 +2,18 @@ const axios = require('axios');
 
 async function getAISuggestions(resumeText) {
   try {
-    const prompt = `You are an elite Career Coach, Senior Technical Recruiter, and an advanced Applicant Tracking System (ATS). 
-    Your goal is to provide a masterclass-level analysis of the user's resume. Do not hold back. You must clearly identify every single weakness, missing element, poor phrasing, lack of metrics, and formatting issue, while also praising what they did right. 
-    Instead of limiting your suggestions, provide comprehensive and highly actionable advice. Tell them exactly what to rewrite, what metrics to add, and how to position themselves as a top 1% candidate. 
+    const prompt = `You are a helpful and experienced Career Coach. 
+    Review the following resume carefully. Point out what is missing, what is written poorly, and what is done well.
+    Please use simple, easy-to-understand English. Tell the user exactly how they can improve their resume with clear examples. Do not use overly complex or confusing words.
 
     You MUST respond with a valid JSON object matching the exact format requested below.
 
     JSON Schema:
     {
-      "score": number (0-100 indicating overall resume qualify based on ATS parsing, keyword density, action verbs, quantification of achievements, and structure),
+      "score": number (0-100 indicating overall resume quality based on keywords, action verbs, and structure),
       "grade": string (e.g. "A+", "A", "B+", "B", "C", "D"),
-      "suggestions": array of objects, EACH with: "type" (must be exactly 'warning', 'info', or 'success') and "message" (Provide highly detailed, actionable feedback. Explain WHY it is an issue and EXACTLY how to fix it. Give specific examples based on their text.),
-      "missingKeywords": array of strings (top 5-10 tech/soft skills they are missing based on their role level),
+      "suggestions": array of objects, EACH with: "type" (must be exactly 'warning', 'info', or 'success') and "message" (Provide clear, simple feedback. Explain exactly how to fix the issue.),
+      "missingKeywords": array of strings (top 5-10 important skills they are missing),
       "foundKeywords": array of strings (top skills you found in the text),
       "sectionScores": object containing these strictly integer scores (0-100): "contact", "summary", "experience", "education", "skills", "formatting"
     }

@@ -5,12 +5,12 @@ interface SectionBreakdownProps {
 }
 
 const SECTION_LABELS: Record<keyof SectionScores, string> = {
-  contact: 'Contact Protocol',
-  summary: 'Executive Summary',
-  experience: 'Operational XP',
-  education: 'Academic Base',
-  skills: 'Skill Matrices',
-  formatting: 'Architecture',
+  contact: 'Contact Info',
+  summary: 'Professional Summary',
+  experience: 'Work Experience',
+  education: 'Education',
+  skills: 'Skills',
+  formatting: 'Formatting',
 };
 
 function barColor(score: number) {

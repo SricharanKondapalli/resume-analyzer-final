@@ -49,7 +49,7 @@ export default function AnalysisResult({ result, onClear }: AnalysisResultProps)
         <div className="md:col-span-2 bg-slate-900/40 rounded-2xl border border-white/5 p-6 backdrop-blur-sm shadow-inner relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 blur-[50px] pointer-events-none" />
           <h3 className="text-xs font-bold text-indigo-300 uppercase tracking-[0.2em] mb-5">
-            Section Breakdown
+            Section Overview
           </h3>
           <SectionBreakdown sectionScores={analysis.sectionScores} />
         </div>
@@ -58,7 +58,7 @@ export default function AnalysisResult({ result, onClear }: AnalysisResultProps)
       <div className="bg-slate-900/50 rounded-2xl border border-white/5 p-7 backdrop-blur-sm relative overflow-hidden shadow-2xl">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-fuchsia-500 opacity-50" />
         <h3 className="text-xs font-bold text-indigo-300 uppercase tracking-[0.2em] mb-5">
-          AI Diagnostic Output ({analysis.suggestions.length})
+          AI Suggestions ({analysis.suggestions.length})
         </h3>
         <div className="space-y-4">
           {analysis.suggestions.map((s, i) => (
@@ -76,7 +76,7 @@ export default function AnalysisResult({ result, onClear }: AnalysisResultProps)
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-slate-900/40 rounded-2xl border border-white/5 p-6 backdrop-blur-sm">
           <h3 className="text-xs font-bold text-emerald-400 uppercase tracking-[0.2em] mb-4">
-            Optimized Keywords
+            Found Keywords
           </h3>
           {analysis.foundKeywords.length === 0 ? (
             <p className="text-sm text-slate-500 italic">No recognized keywords found.</p>
@@ -96,10 +96,10 @@ export default function AnalysisResult({ result, onClear }: AnalysisResultProps)
 
         <div className="bg-slate-900/40 rounded-2xl border border-white/5 p-6 backdrop-blur-sm">
           <h3 className="text-xs font-bold text-rose-400 uppercase tracking-[0.2em] mb-4">
-            Deficient Keywords
+            Missing Keywords
           </h3>
           {analysis.missingKeywords.length === 0 ? (
-            <p className="text-sm text-slate-500 italic">Optimal keyword coverage achieved!</p>
+            <p className="text-sm text-slate-500 italic">Excellent keyword coverage!</p>
           ) : (
             <div className="flex flex-wrap gap-2.5">
               {analysis.missingKeywords.map((kw) => (

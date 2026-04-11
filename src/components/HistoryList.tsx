@@ -32,8 +32,8 @@ export default function HistoryList({
             <Clock size={16} className="text-indigo-400" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-wide">Analysis Log</h3>
-            <p className="text-xs text-slate-500 mt-0.5">{pagination.total} neural scans cached</p>
+            <h3 className="text-sm font-semibold text-white tracking-wide">Analysis History</h3>
+            <p className="text-xs text-slate-500 mt-0.5">{pagination.total} records saved</p>
           </div>
         </div>
         <button
@@ -50,7 +50,7 @@ export default function HistoryList({
         <div className="flex items-center justify-center py-16 relative z-10">
           <div className="flex flex-col items-center gap-4">
             <div className="w-10 h-10 border-2 border-white/10 border-t-indigo-500 rounded-full animate-spin" />
-            <span className="text-xs font-semibold text-slate-400 tracking-widest uppercase">Querying Databank...</span>
+            <span className="text-xs font-semibold text-slate-400 tracking-widest uppercase">Loading History...</span>
           </div>
         </div>
       ) : entries.length === 0 ? (
@@ -58,8 +58,8 @@ export default function HistoryList({
           <div className="w-16 h-16 bg-slate-800/50 rounded-full flex items-center justify-center mb-4 ring-1 ring-white/5 shadow-[0_0_30px_rgba(99,102,241,0.1)]">
             <TrendingUp size={24} className="text-indigo-400/50" />
           </div>
-          <p className="text-sm font-semibold text-slate-300">No telemetry recorded</p>
-          <p className="text-xs text-slate-500 mt-1">Initiate your first scan to populate this terminal</p>
+          <p className="text-sm font-semibold text-slate-300">No history found</p>
+          <p className="text-xs text-slate-500 mt-1">Analyze your first resume to see history here</p>
         </div>
       ) : (
         <>
@@ -75,9 +75,9 @@ export default function HistoryList({
                     </span>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-bold text-white tracking-wide">Class {entry.analysis.grade}</span>
+                        <span className="text-sm font-bold text-white tracking-wide">Grade {entry.analysis.grade}</span>
                         <span className="text-xs text-slate-600">·</span>
-                        <span className="text-xs text-slate-400">{entry.wordCount} tokens</span>
+                        <span className="text-xs text-slate-400">{entry.wordCount} words</span>
                       </div>
                       <p className="text-[10px] text-slate-500 mt-1 font-medium uppercase tracking-wider">
                         {new Date(entry.createdAt).toLocaleDateString(undefined, {
@@ -91,10 +91,10 @@ export default function HistoryList({
                   </div>
                   <div className="text-right">
                     <p className="text-xs font-semibold text-indigo-300/80">
-                      {entry.analysis.foundKeywords.length} tags
+                      {entry.analysis.foundKeywords.length} skills
                     </p>
                     <p className="text-[10px] text-slate-500 mt-1 tracking-wider uppercase">
-                      {entry.analysis.suggestions.length} vectors
+                      {entry.analysis.suggestions.length} suggestions
                     </p>
                   </div>
                 </div>
@@ -105,7 +105,7 @@ export default function HistoryList({
           {pagination.pages > 1 && (
             <div className="flex items-center justify-between px-6 py-4 border-t border-white/5 bg-slate-950/40 relative z-10">
               <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">
-                Sector {pagination.page} / {pagination.pages}
+                Page {pagination.page} of {pagination.pages}
               </span>
               <div className="flex items-center gap-2">
                 <button
