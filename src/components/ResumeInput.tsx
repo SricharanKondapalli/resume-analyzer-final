@@ -39,51 +39,54 @@ export default function ResumeInput({ onAnalyze, loading }: ResumeInputProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="relative">
+      <div className="relative group">
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder={PLACEHOLDER}
           rows={14}
-          className="w-full px-4 py-3.5 text-sm text-gray-800 bg-white border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-300 leading-relaxed transition-all"
+          className="w-full px-5 py-4 text-sm text-indigo-100 bg-slate-950/40 border border-white/5 rounded-xl resize-none focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:border-indigo-500/50 placeholder-slate-700 leading-relaxed transition-all shadow-inner backdrop-blur-md"
           disabled={loading}
         />
+        <div className="absolute inset-0 rounded-xl ring-1 ring-white/10 pointer-events-none group-focus-within:ring-indigo-500/30 transition-all" />
+        
         {text && (
           <button
             type="button"
             onClick={() => setText('')}
-            className="absolute top-3 right-3 p-1.5 rounded-lg text-gray-300 hover:text-gray-500 hover:bg-gray-100 transition-colors"
+            className="absolute top-4 right-4 p-1.5 rounded-lg text-slate-500 hover:text-white hover:bg-white/10 transition-colors"
             title="Clear text"
           >
-            <Trash2 size={14} />
+            <Trash2 size={16} />
           </button>
         )}
       </div>
 
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1.5 text-xs text-gray-400">
-          <FileText size={12} />
-          <span>{wordCount} words</span>
-          {wordCount > 0 && wordCount < 50 && (
-            <span className="text-amber-500 ml-1">· Need at least ~50 words</span>
-          )}
+      <div className="flex items-center justify-between pt-2">
+        <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
+           <FileText size={14} className="text-indigo-400/70" />
+           <span>{wordCount} words loaded</span>
+           {wordCount > 0 && wordCount < 50 && (
+             <span className="text-amber-400 ml-1 bg-amber-400/10 px-2.5 py-0.5 rounded-full ring-1 ring-amber-400/20">Requires ~50 words minimum</span>
+           )}
         </div>
 
         <button
           type="submit"
           disabled={loading || text.trim().length < 50}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 active:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow"
+          className="relative overflow-hidden flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-sm font-semibold shadow-[0_0_20px_rgba(99,102,241,0.4)] disabled:opacity-40 disabled:shadow-none transition-all active:scale-95 group focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900"
         >
+          <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
           {loading ? (
-            <>
-              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              Analyzing...
-            </>
+             <>
+               <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+               Processing Analysis...
+             </>
           ) : (
-            <>
-              <Sparkles size={16} />
-              Analyze Resume
-            </>
+             <>
+               <Sparkles size={16} className="text-indigo-100 group-hover:animate-pulse" />
+               Commence Evaluation
+             </>
           )}
         </button>
       </div>

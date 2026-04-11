@@ -10,10 +10,10 @@ interface HistoryListProps {
 }
 
 function scoreColor(score: number) {
-  if (score >= 80) return 'text-green-600 bg-green-100';
-  if (score >= 60) return 'text-amber-600 bg-amber-100';
-  if (score >= 40) return 'text-orange-600 bg-orange-100';
-  return 'text-red-600 bg-red-100';
+  if (score >= 80) return 'text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.15)]';
+  if (score >= 60) return 'text-amber-300 bg-amber-500/10 border border-amber-500/20 shadow-[0_0_15px_rgba(251,191,36,0.15)]';
+  if (score >= 40) return 'text-orange-300 bg-orange-500/10 border border-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.15)]';
+  return 'text-rose-300 bg-rose-500/10 border border-rose-500/20 shadow-[0_0_15px_rgba(244,63,94,0.15)]';
 }
 
 export default function HistoryList({
@@ -24,65 +24,65 @@ export default function HistoryList({
   onRefresh,
 }: HistoryListProps) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-      <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-        <div className="flex items-center gap-2.5">
-          <div className="p-1.5 bg-gray-100 rounded-lg">
-            <Clock size={16} className="text-gray-600" />
+    <div className="glass-panel overflow-hidden rounded-2xl ring-1 ring-white/10 relative">
+      <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-blue-500/0 via-indigo-500 to-purple-500/0 opacity-50" />
+      <div className="flex items-center justify-between px-6 py-5 border-b border-white/5 relative z-10">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-slate-800/50 rounded-xl ring-1 ring-white/5">
+            <Clock size={16} className="text-indigo-400" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-gray-900">Analysis History</h3>
-            <p className="text-xs text-gray-500">{pagination.total} total records</p>
+            <h3 className="text-sm font-semibold text-white tracking-wide">Analysis Log</h3>
+            <p className="text-xs text-slate-500 mt-0.5">{pagination.total} neural scans cached</p>
           </div>
         </div>
         <button
           onClick={onRefresh}
           disabled={loading}
-          className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors disabled:opacity-50"
-          title="Refresh"
+          className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors disabled:opacity-50 ring-1 ring-white/5 bg-slate-900/50"
+          title="Refresh Data"
         >
-          <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
+          <RefreshCw size={16} className={loading ? 'animate-spin text-indigo-400' : ''} />
         </button>
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center py-12">
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-8 h-8 border-2 border-gray-200 border-t-blue-500 rounded-full animate-spin" />
-            <span className="text-sm text-gray-500">Loading history...</span>
+        <div className="flex items-center justify-center py-16 relative z-10">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-10 h-10 border-2 border-white/10 border-t-indigo-500 rounded-full animate-spin" />
+            <span className="text-xs font-semibold text-slate-400 tracking-widest uppercase">Querying Databank...</span>
           </div>
         </div>
       ) : entries.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
-          <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
-            <TrendingUp size={20} className="text-gray-400" />
+        <div className="flex flex-col items-center justify-center py-16 px-4 text-center relative z-10">
+          <div className="w-16 h-16 bg-slate-800/50 rounded-full flex items-center justify-center mb-4 ring-1 ring-white/5 shadow-[0_0_30px_rgba(99,102,241,0.1)]">
+            <TrendingUp size={24} className="text-indigo-400/50" />
           </div>
-          <p className="text-sm font-medium text-gray-700">No analyses yet</p>
-          <p className="text-xs text-gray-400 mt-1">Analyze your first resume to see history here</p>
+          <p className="text-sm font-semibold text-slate-300">No telemetry recorded</p>
+          <p className="text-xs text-slate-500 mt-1">Initiate your first scan to populate this terminal</p>
         </div>
       ) : (
         <>
-          <ul className="divide-y divide-gray-50">
+          <ul className="divide-y divide-white/5 relative z-10 bg-slate-950/20">
             {entries.map((entry) => (
-              <li key={entry._id} className="px-5 py-3.5 hover:bg-gray-50 transition-colors">
+              <li key={entry._id} className="px-6 py-4 hover:bg-white/5 transition-colors group cursor-default">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-4">
                     <span
-                      className={`inline-flex items-center justify-center w-10 h-10 rounded-xl text-sm font-bold ${scoreColor(entry.analysis.score)}`}
+                      className={`inline-flex items-center justify-center w-11 h-11 rounded-xl text-sm font-bold ${scoreColor(entry.analysis.score)} transition-transform group-hover:scale-110`}
                     >
                       {entry.analysis.score}
                     </span>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-gray-900">Grade: {entry.analysis.grade}</span>
-                        <span className="text-xs text-gray-400">·</span>
-                        <span className="text-xs text-gray-500">{entry.wordCount} words</span>
+                        <span className="text-sm font-bold text-white tracking-wide">Class {entry.analysis.grade}</span>
+                        <span className="text-xs text-slate-600">·</span>
+                        <span className="text-xs text-slate-400">{entry.wordCount} tokens</span>
                       </div>
-                      <p className="text-xs text-gray-400 mt-0.5">
+                      <p className="text-[10px] text-slate-500 mt-1 font-medium uppercase tracking-wider">
                         {new Date(entry.createdAt).toLocaleDateString(undefined, {
                           month: 'short',
                           day: 'numeric',
-                          year: 'numeric',
                           hour: '2-digit',
                           minute: '2-digit',
                         })}
@@ -90,11 +90,11 @@ export default function HistoryList({
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-gray-500">
-                      {entry.analysis.foundKeywords.length} keywords
+                    <p className="text-xs font-semibold text-indigo-300/80">
+                      {entry.analysis.foundKeywords.length} tags
                     </p>
-                    <p className="text-xs text-gray-400 mt-0.5">
-                      {entry.analysis.suggestions.length} suggestions
+                    <p className="text-[10px] text-slate-500 mt-1 tracking-wider uppercase">
+                      {entry.analysis.suggestions.length} vectors
                     </p>
                   </div>
                 </div>
@@ -103,22 +103,22 @@ export default function HistoryList({
           </ul>
 
           {pagination.pages > 1 && (
-            <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100">
-              <span className="text-xs text-gray-500">
-                Page {pagination.page} of {pagination.pages}
+            <div className="flex items-center justify-between px-6 py-4 border-t border-white/5 bg-slate-950/40 relative z-10">
+              <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">
+                Sector {pagination.page} / {pagination.pages}
               </span>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-2">
                 <button
                   onClick={() => onPageChange(pagination.page - 1)}
                   disabled={pagination.page <= 1}
-                  className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors disabled:opacity-20 disabled:hover:bg-transparent"
                 >
                   <ChevronLeft size={16} />
                 </button>
                 <button
                   onClick={() => onPageChange(pagination.page + 1)}
                   disabled={pagination.page >= pagination.pages}
-                  className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors disabled:opacity-20 disabled:hover:bg-transparent"
                 >
                   <ChevronRight size={16} />
                 </button>

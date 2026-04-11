@@ -57,56 +57,75 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-3">
-          <div className="p-2 bg-blue-600 rounded-xl">
-            <BrainCircuit size={22} className="text-white" />
+    <div className="min-h-screen relative overflow-hidden bg-slate-950 text-slate-100 selection:bg-indigo-500/30">
+      {/* Background ambient glows */}
+      <div className="fixed -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-indigo-600/20 blur-[120px] pointer-events-none animate-pulse-glow" />
+      <div className="fixed top-[40%] -right-[10%] w-[40%] h-[60%] rounded-full bg-fuchsia-600/10 blur-[150px] pointer-events-none animate-float" />
+      
+      <header className="sticky top-0 z-20 glass-panel border-b border-white/5 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-xl shadow-lg ring-1 ring-white/20 relative overflow-hidden">
+              <div className="absolute inset-0 bg-white/20 w-1/2 -skew-x-12 -translate-x-full" />
+              <BrainCircuit size={24} className="text-white relative z-10" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 tracking-tight">
+                Resume Analyzer
+              </h1>
+              <p className="text-xs text-indigo-300/80 font-medium tracking-wide uppercase mt-0.5">AI-Powered Evaluation</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-lg font-bold text-gray-900 leading-tight">Resume Analyzer</h1>
-            <p className="text-xs text-gray-500 leading-tight">AI-powered resume scoring & feedback</p>
-          </div>
-          <div className="ml-auto hidden sm:flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full border border-blue-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-              MERN Stack
+          <div className="hidden sm:flex items-center">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 glass-panel rounded-full text-xs font-semibold text-indigo-300 ring-1 ring-indigo-500/30 shadow-[0_0_15px_rgba(99,102,241,0.2)]">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+              </span>
+              Llama-3 Architecture
             </span>
           </div>
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-              <div className="mb-5">
-                <h2 className="text-base font-semibold text-gray-900">Paste Your Resume</h2>
-                <p className="text-sm text-gray-500 mt-0.5">
-                  Copy and paste your resume content below for an instant AI-powered analysis.
+          
+          {/* Main Left Column */}
+          <div className="lg:col-span-2 space-y-8 animate-fade-in">
+            <div className="glass-panel rounded-2xl p-7 relative overflow-hidden group transition-all duration-300 hover:ring-1 hover:ring-white/10">
+              <div className="absolute -inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="mb-6">
+                <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Initialize</span> Analysis
+                </h2>
+                <p className="text-sm text-slate-400 mt-1">
+                  Paste your resume directly into the terminal below for an instant, deep-learning powered evaluation.
                 </p>
               </div>
               <ResumeInput onAnalyze={handleAnalyze} loading={analyzing} />
             </div>
 
             {analyzeError && (
-              <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-xl">
-                <AlertCircle size={18} className="text-red-500 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-red-800">Analysis Failed</p>
-                  <p className="text-sm text-red-600 mt-0.5">{analyzeError}</p>
+              <div className="flex items-start gap-4 p-5 glass-panel !border-red-500/30 rounded-2xl animate-fade-in relative overflow-hidden">
+                <div className="absolute inset-0 bg-red-500/5 pointer-events-none" />
+                <AlertCircle size={22} className="text-red-400 shrink-0 mt-0.5 relative z-10" />
+                <div className="relative z-10">
+                  <p className="text-sm font-semibold text-red-200">System Error</p>
+                  <p className="text-sm text-red-400 mt-1">{analyzeError}</p>
                 </div>
               </div>
             )}
 
             {result && (
-              <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+              <div className="glass-panel rounded-2xl p-7 animate-fade-in transform origin-top transition-all shadow-[0_0_40px_rgba(99,102,241,0.05)] ring-1 ring-indigo-500/20">
                 <AnalysisResult result={result} onClear={() => setResult(null)} />
               </div>
             )}
           </div>
 
-          <div className="lg:col-span-1 space-y-6">
+          {/* Right Sidebar Column */}
+          <div className="lg:col-span-1 space-y-8">
             <HistoryList
               entries={history.entries}
               pagination={{ page: history.page, pages: history.pages, total: history.total }}
@@ -115,41 +134,41 @@ export default function App() {
               onRefresh={() => loadHistory(history.page)}
             />
 
-            <div className="bg-white rounded-2xl border border-gray-200 p-5">
-              <h3 className="text-sm font-semibold text-gray-900 mb-3">How It Works</h3>
-              <ol className="space-y-3">
+            <div className="glass-panel rounded-2xl p-6 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 pointer-events-none" />
+              <h3 className="text-sm font-semibold tracking-wide text-white mb-4 uppercase">How It Works</h3>
+              <div className="space-y-5 relative relative z-10">
                 {[
-                  { num: '1', title: 'Paste Resume', desc: 'Copy your resume text into the editor above.' },
-                  { num: '2', title: 'Click Analyze', desc: 'Our AI engine scans for keywords and structure.' },
-                  { num: '3', title: 'Review Results', desc: 'Get a score, grade, and actionable suggestions.' },
+                  { num: '01', title: 'Parse Matrix', desc: 'Securely extract raw text formats.' },
+                  { num: '02', title: 'Neural Analysis', desc: 'Llama-3 evaluates structure & verb impact.' },
+                  { num: '03', title: 'Action Report', desc: 'Generate 1% candidate benchmarks.' },
                 ].map((step) => (
-                  <li key={step.num} className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                  <div key={step.num} className="flex gap-4 group cursor-default">
+                    <span className="flex-shrink-0 text-sm font-bold text-indigo-500/50 group-hover:text-indigo-400 transition-colors">
                       {step.num}
                     </span>
                     <div>
-                      <p className="text-sm font-medium text-gray-800">{step.title}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{step.desc}</p>
+                      <p className="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors">{step.title}</p>
+                      <p className="text-xs text-slate-500 mt-1 leading-relaxed">{step.desc}</p>
                     </div>
-                  </li>
+                  </div>
                 ))}
-              </ol>
+              </div>
             </div>
 
-            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-5 text-white">
-              <h3 className="text-sm font-semibold mb-2">What We Check</h3>
-              <ul className="space-y-1.5">
+            <div className="relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-indigo-900 to-purple-900 ring-1 ring-white/10 shadow-[0_0_30px_rgba(99,102,241,0.3)]">
+              <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 blur-2xl rounded-full" />
+              <h3 className="text-sm font-semibold mb-3 text-white">Diagnostic Vectors</h3>
+              <ul className="space-y-2.5 relative z-10">
                 {[
-                  'Contact information',
-                  'Professional summary',
-                  'Work experience',
-                  'Education & certifications',
-                  'Technical keywords',
-                  'Action verbs usage',
-                  'Resume length & formatting',
+                  'Information Architecture',
+                  'Impact Quantification (Metrics)',
+                  'Action Verb Density',
+                  'ATS Keyword Alignment',
+                  'Professional Tone Mapping',
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-xs text-blue-100">
-                    <span className="w-1 h-1 rounded-full bg-blue-300" />
+                  <li key={item} className="flex items-center gap-2.5 text-xs text-indigo-100/80 font-medium">
+                    <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
                     {item}
                   </li>
                 ))}
@@ -159,9 +178,9 @@ export default function App() {
         </div>
       </main>
 
-      <footer className="border-t border-gray-200 mt-12 py-6">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-xs text-gray-400">
-          Resume Analyzer · MERN Stack · React + Node.js + Express + MongoDB
+      <footer className="relative z-10 border-t border-white/5 mt-16 py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-xs font-medium tracking-wide text-slate-500 uppercase">
+          AI Candidate Optimizer <span className="opacity-50 mx-2">|</span> Engine: Llama-3 70B <span className="opacity-50 mx-2">|</span> Glassmorphism UI
         </div>
       </footer>
     </div>
