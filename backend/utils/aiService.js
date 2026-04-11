@@ -3,25 +3,31 @@ const axios = require('axios');
 async function getAISuggestions(resumeText) {
   try {
     const response = await axios.post(
-      "https://router.huggingface.co/models/google/flan-t5-large",
+      "https://api.groq.com/openai/v1/chat/completions",
       {
-        inputs: `Analyze this resume and give 3 to 5 improvement suggestions:\n${resumeText}`
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          {
+            role: "user",
+            content: `Analyze this resume and give 3 to 5 improvement suggestions. Keep the response concise.\n\nResume:\n${resumeText}`
+          }
+        ]
       },
       {
         headers: {
-          Authorization: `Bearer ${process.env.HF_API_KEY}`,
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
           "Content-Type": "application/json"
         }
       }
     );
 
-    console.log("AI RESPONSE:", response.data);
+    console.log("AI RESPONSE SUCCESS");
 
-    if (Array.isArray(response.data)) {
-      return response.data[0]?.generated_text || "No suggestions generated";
+    if (response.data && response.data.choices && response.data.choices.length > 0) {
+      return response.data.choices[0].message.content || "No suggestions generated";
     }
 
-    return response.data?.generated_text || "No suggestions generated";
+    return "No suggestions generated";
 
   } catch (err) {
     console.error("AI ERROR:", err.response?.data || err.message);
