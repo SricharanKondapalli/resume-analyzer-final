@@ -1,6 +1,5 @@
 const { getAISuggestions } = require('../utils/aiService');
 const Resume = require('../models/Resume');
-const { analyzeResume } = require('../utils/aiAnalyzer');
 
 async function analyze(req, res) {
   try {
@@ -16,16 +15,9 @@ async function analyze(req, res) {
     }
 
     const wordCount = trimmed.split(/\s+/).length;
-    const baseAnalysis = analyzeResume(trimmed);
 
-    // AI CALL
-    const aiSuggestions = await getAISuggestions(trimmed);
-
-    // COMBINED RESULT
-    const analysis = {
-      ...baseAnalysis,
-      aiSuggestions,
-    };
+    // 100% AI GENERATED JSON
+    const analysis = await getAISuggestions(trimmed);
 
     let savedEntry = null;
     try {
