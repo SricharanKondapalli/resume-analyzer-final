@@ -6,7 +6,7 @@ interface ResumeInputProps {
   loading: boolean;
 }
 
-const PLACEHOLDER = `Don't Paste your resume text here...
+const PLACEHOLDER = `Paste your resume text here...
 
 Example:
 John Doe
