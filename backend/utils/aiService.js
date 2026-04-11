@@ -3,7 +3,7 @@ const axios = require('axios');
 async function getAISuggestions(resumeText) {
   try {
     const response = await axios.post(
-      "https://router.huggingface.co/hf-inference/models/google/flan-t5-large",
+      "https://router.huggingface.co/models/google/flan-t5-large",
       {
         inputs: `Analyze this resume and give 3 to 5 improvement suggestions:\n${resumeText}`
       },
@@ -17,7 +17,6 @@ async function getAISuggestions(resumeText) {
 
     console.log("AI RESPONSE:", response.data);
 
-    // New response format safe handling
     if (Array.isArray(response.data)) {
       return response.data[0]?.generated_text || "No suggestions generated";
     }
