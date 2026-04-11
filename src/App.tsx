@@ -97,7 +97,7 @@ export default function App() {
               <div className="absolute -inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="mb-6">
                 <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Start</span> analysis
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Start</span> Analysis
                 </h2>
                 <p className="text-sm text-slate-400 mt-1">
                   Paste your resume directly into the box below for an instant, AI-powered evaluation.
