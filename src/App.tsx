@@ -71,7 +71,7 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 tracking-tight">
-                Resume Analyze
+                Resume Analyzer
               </h1>
               <p className="text-xs text-indigo-300/80 font-medium tracking-wide uppercase mt-0.5">AI-Powered Evaluation</p>
             </div>
